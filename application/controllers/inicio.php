@@ -11,7 +11,9 @@ class Inicio extends MY_Controller {
      */
     public function index() {
         //redirect('http://server.com');
-        echo json_encode(["error" => "invalid access"]);
+        echo json_encode(["Puto" => "sebastián"]);
+
+        echo 'Funciona';
     }
 
 }
