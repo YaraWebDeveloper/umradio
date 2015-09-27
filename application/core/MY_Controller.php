@@ -1,6 +1,19 @@
 <?php
 
-class MY_Controller extends CI_Controller {
+//importo la librerÃ­a del rest controler
+require APPPATH . '/libraries/REST_Controller.php';
+
+/**
+ * Controlador general para aplicacion
+ * 
+ * @package         App
+ * @subpackage      Core
+ * @category        Controller
+ * @author          Yara Web Developer, Juan Carlos CastaÃ±eda
+ * @license         GPL
+ * @version         1.0
+ */
+class General_Controller extends CI_Controller {
 
     //atributo de validación para la session
     public $user_id;
@@ -244,7 +257,7 @@ class MY_Controller extends CI_Controller {
         //obtener url
         $dataUrl = $this->uri->segment(1);
         //obtener id de la url
-        $dataIdUrl = $this->crud_model->obtenerRegistros("modulo", 'mod_url = "' . $dataUrl . '"', "mod_id, mod_nombre, mod_clase_icono, mod_url, mod_descripcion, mod_dependencia");
+        $dataIdUrl = $this->crud_model->obtenerRegistros("modulo", 'mod_url = "' . $dataUrl . '"', "mod_id, mod_nombre, mod_clase_icono, mod_url, mod_dependencia");
         //tipo de consulta
         if ($pTipo == 0): // si es normal
             //verifico que no venga vacio la consulta
@@ -259,7 +272,7 @@ class MY_Controller extends CI_Controller {
             endif;
         elseif ($pTipo == 2): //si se quiere recibir datos de la uri
             //obtener el nombvre de la url
-            $dataIdUrl = $this->crud_model->obtenerRegistros("modulo", 'mod_url = "' . $dataUrl . '"', "mod_id, mod_nombre, mod_clase_icono, mod_url, mod_descripcion, mod_dependencia");
+            $dataIdUrl = $this->crud_model->obtenerRegistros("modulo", 'mod_url = "' . $dataUrl . '"', "mod_id, mod_nombre, mod_clase_icono, mod_url, mod_dependencia");
             //retornar estos datos
             return $dataIdUrl;
         else:
@@ -336,9 +349,11 @@ class MY_Controller extends CI_Controller {
         );
         //array para el join
         $dataJoin = array(
-            'table' => 'modulo',
-            'compare' => 'log_acceso_historial.mod_id = modulo.mod_id',
-            'method' => 'left'
+            array(
+                'table' => 'modulo',
+                'compare' => 'log_acceso_historial.mod_id = modulo.mod_id',
+                'method' => 'left'
+            )
         );
 
         $dataSendQuery = array(
@@ -430,6 +445,68 @@ class MY_Controller extends CI_Controller {
         else:
             return NULL;
         endif;
+    }
+
+}
+
+/**
+ * Controlador general para server
+ * Desde aqui se aplican todas las configuraciones para el webservice
+ *
+ * @package         Server
+ * @subpackage      Core
+ * @category        Controller
+ * @author          Yara Web Developer
+ * @license         GPL
+ * @version         1.0
+ */
+class Server_Controller extends REST_Controller {
+
+    /**
+     * Contructor de la clase
+     * Permite solicitudes CORS (desde otras url, servidores o dominios)
+     * 
+     * @access public
+     */
+    public function __construct() {
+        //Declarar los header para permitir solicirudes desde cualquier servidor
+        header('Access-Control-Allow-Origin: *');
+        //Nombre de API Key, debe ser configurada en config/rest.php -> REST API Key Variable
+        header("Access-Control-Allow-Headers: accept-auth");
+        //Permitir acceso por solicitud option
+        $method = $_SERVER['REQUEST_METHOD'];
+        if ($method == "OPTIONS")
+            die();
+        //Hacer llamado de contructor padre
+        parent::__construct();
+    }
+
+    /**
+     * Funcion para obtener datos con consulta DB simple
+     * 
+     * @param   string                  $Database
+     * @param   string                  $pTabla
+     * @param   string                  $pCampos
+     * @param   array/string            $pWhere
+     * @param   array/string            $dataOrder
+     * @param   array/string            $dataLimit
+     * @return  array/null
+     */
+    public function obtenerData($pTabla, $pCampos = NULL, $pWhere = NULL, $dataOrder = NULL, $dataLimit = NULL) {
+        //creo los campos a seleccionar de tipo persona
+        $dataSelect = $pCampos;
+        //creo los campos a seleccionar de tipo persona
+        if ($pWhere == NULL):
+            $dataWhere = array(
+                "est_id" => 1
+            );
+        else:
+            $dataWhere = $pWhere;
+        endif;
+        //obtengo los registros
+        $dataRegistros = $this->crud_model->obtenerRegistros($pTabla, $dataWhere, $dataSelect, $dataOrder, $dataLimit);
+        //devolvemos la data
+        return $dataRegistros;
     }
 
 }

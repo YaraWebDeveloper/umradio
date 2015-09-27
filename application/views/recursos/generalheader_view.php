@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Politeca - Biblioteca Virtual</title>
+        <title>UMRadio - Listen to Radio</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <link href="<?php echo base_url("themes/admin"); ?>/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url("themes/admin"); ?>/css/font_awesome/font-awesome.css" rel="stylesheet" type="text/css" />
@@ -35,7 +35,7 @@
         <header class="header">
             <a href="<?php echo base_url(); ?>" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                Politeca
+                UM Radio
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -48,86 +48,6 @@
                 </a>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
-                        <!-- Messages: style can be found in dropdown.less-->
-                        <li class="dropdown messages-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-envelope"></i>
-                                <span class="label label-success">1</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">Tienes 1 Mensaje(s)</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li><!-- start message -->
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="<?php echo base_url("userfiles/usuario/imagen"); ?>/profile_user.jpg" class="img-circle" alt="User Image"/>
-                                                </div>
-                                                <h4>
-                                                    Soporte
-                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                                </h4>
-                                                <p>¿Por que no contruyes más ágil...</p>
-                                            </a>
-                                        </li><!-- end message -->
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">Todos los mensajes</a></li>
-                            </ul>
-                        </li>
-                        <!-- Notifications: style can be found in dropdown.less -->
-                        <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-warning"></i>
-                                <span class="label label-warning">1</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">1 Notificaciones</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li>
-                                            <a href="#">
-                                                <i class="ion ion-ios7-people info"></i> 5 miembros nuevos
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">Ver Todas</a></li>
-                            </ul>
-                        </li>
-                        <!-- Tasks: style can be found in dropdown.less -->
-                        <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-tasks"></i>
-                                <span class="label label-danger">1</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">Menú 1</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li><!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    Diseñar datos
-                                                    <small class="pull-right">20%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">20% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li><!-- end task item -->
-                                    </ul>
-                                </li>
-                                <li class="footer">
-                                    <a href="#">Ver Tareas</a>
-                                </li>
-                            </ul>
-                        </li>
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -193,10 +113,11 @@
             <aside class="right-side">
                 <!-- Small boxes (Stat box) -->
                 <?php
+                $dataDescricpion = "Panel de Control";
                 if ($dataModuloActual != NULL):
                     $dataIcono = $dataModuloActual->mod_clase_icono;
                     $dataNombreModulo = $dataModuloActual->mod_nombre;
-                    $dataDescricpion = $dataModuloActual->mod_descripcion;
+                //$dataDescricpion = $dataModuloActual->mod_descripcion;
                 else:
                     $dataIcono = "fa-dashboard";
                     $dataNombreModulo = "Inicio";

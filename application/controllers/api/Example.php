@@ -14,11 +14,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @license         MIT
  * @link            https://github.com/chriskacerguis/codeigniter-restserver
  */
-class Example extends REST_Controller {
+class Example extends Server_Controller {
 
     //methods and levels
     protected $methods = [
-        'users_get' => ['level' => 1]
+        //'users_get' => ['level' => 1]
     ];
 
     function __construct() {

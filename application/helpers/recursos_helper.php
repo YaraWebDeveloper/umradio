@@ -3,17 +3,39 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-/**
- * Funcion para remplazar estado
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
+
+if (!function_exists('mensaje')) {
+
+    function mensaje($pMensaje, $pTipo = "") {
+        //si tipo viene vacío
+        if ($pTipo == NULL):
+            $pTipo = "alert-danger";
+        endif;
+        //valido que el mensaje no llegue vacio
+        if ($pMensaje != '') {
+            return '
+            <!-- inicio mensaje -->
+            <div class="col-lg-12"><div class="alert ' . $pTipo . ' alert-dismissable">
+                <i class="fa fa-bullhorn"></i>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                ' . $pMensaje . '
+            </div></div>
+
+            <!-- fin de mensaje -->
+            ';
+        }//fin del if
+    }
+
+}//fin de la función
+
+
 if (!function_exists('reemplazarEstado')) {
 
-    /**
-     * Remplazar el estado por id
-     * 
-     * @param   int        $pIdEstado
-     * @return  string
-     */
     function reemplazarEstado($pIdEstado) {
 
         //creo el valor retorno
@@ -26,8 +48,6 @@ if (!function_exists('reemplazarEstado')) {
     }
 
 }//fin de la función
-
-
 
 if (!function_exists('controlSelect')) {
 
@@ -43,36 +63,7 @@ if (!function_exists('controlSelect')) {
         }//fin del if
         else {
             $dataRegistros = array(
-                '' => 'Seleccione una opción',
-                '1' => 'Activo',
-                '2' => 'Inactivo',
-            );
-        }//fin del if else
-        //devolvemos los datos
-        return $dataRegistros;
-    }
-
-}//fin de la función
-if (!function_exists('controlSelectEys')) {
-
-    function controlSelectEys($pDataRegistros = NULL, $pCampoValue = NULL, $pCampoNombre = NULL) {
-
-        //validamos el parámetro
-        if ($pDataRegistros != NULL) {
-            //iteramos el arreglo que llega
-            $dataRegistros[''] = 'Seleccione una opción';
-            foreach ($pDataRegistros as $filaRegistros):
-                if ($filaRegistros->pro_tipo == 1):
-                    $pCampoNombre = "pro_nombre_eys";
-                else:
-                    $pCampoNombre = "pro_nombre";
-                endif;
-                $dataRegistros[$filaRegistros->$pCampoValue] = $filaRegistros->$pCampoNombre;
-            endforeach;
-        }//fin del if
-        else {
-            $dataRegistros = array(
-                '' => 'Seleccione una opción',
+                '' => 'Estado',
                 '1' => 'Activo',
                 '2' => 'Inactivo',
             );
@@ -109,44 +100,11 @@ if (!function_exists('controlInput')) {
 
 }
 
-//FUNCION PARA LIMPIAR LOS CARACTERES ESPECIAL
-if (!function_exists('quitarBakcSlash')) {
+if (!function_exists('getHoraExacta')) {
 
-    function quitarBakcSlash($string) {
-        $string = htmlentities($string);
-        $string = stripslashes($string);
-        return $string;
-    }
-
-}//FIN DE LA FUNCION
-//funcion para calcular dias transucrridos entre dos fechas
-if (!function_exists('dias_transcurridos')) {
-
-    function dias_transcurridos($fecha_i, $fecha_f) {
-        $dias = (strtotime($fecha_i) - strtotime($fecha_f)) / 86400;
-        $dias = abs($dias);
-        $dias = floor($dias);
-        return $dias;
-    }
-
-}
-
-/**
- *  Hora y fecha exacya
- */
-if (!function_exists('fecha_exacta')) {
-
-    /**
-     * Funcion par fecha y hora exacta
-     * 
-     * @param   string      $pFormato       Formato de salida
-     * @return  string                      Fecha con formato establecido
-     */
-    function fecha_exacta($pFormato = 'Y-m-d h:i:s') {
-        //Hora exacta
-        $dataExacta = date($pFormato);
-        //devolver hora
-        return $dataExacta;
+    function getHoraExacta() {
+        $dateHora = date('Y-m-d H:i:s', strtotime("-7 hour", strtotime(date("H:i:s"))));
+        return $dateHora;
     }
 
 }

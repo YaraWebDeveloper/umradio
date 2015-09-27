@@ -37,13 +37,6 @@ class Login_model extends CI_Model {
     public function consultarDatos() {
         //creo la variable de retotno
         $valorRetorno = null;
-        //preparo el arreglo de la condición where
-        /* $dataUsuario = array(
-          'usu_documento' => $this->input->post('text_user', TRUE),
-          //uso en el campo de contraseña el metodo do hash para convertir en MD5
-          'usu_contrasena' => do_hash($this->input->post('text_contrasena', TRUE), 'md5'),
-          'usuario.est_id' => 1
-          ); */
         //creo la cadena de where manual
         $dataWhere = '( usu_correo = "' . $this->input->post('text_user', TRUE) . '" '
                 . 'OR usu_username = "' . $this->input->post('text_user', TRUE) . '") '

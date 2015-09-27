@@ -1,8 +1,7 @@
 <?php echo $header ?>
 <?php
 /* * Elemewntos PHP* */
-$dataInput = controlInput('tip_doc_nombre', $valorNombre, 'Nombre Tipo Documento', 'required form-control');
-$dataInputPrefijo = controlInput('tip_doc_prefijo', $valorPrefijo, 'Iniciales ej: C.C.', 'required form-control');
+$dataInput = controlInput('tip_usu_nombre', $valorNombre, 'Nombre Tipo Usuario', 'required form-control');
 $dataEstados = controlSelect();
 $dataSelected = array($valorEstado);
 ?>
@@ -34,23 +33,25 @@ $dataSelected = array($valorEstado);
                             <thead>
                                 <tr>
 
-                                    <th>Tipo Documento</th>
+                                    <th>Tipo Usuario</th>
                                     <th>Estado</th>
                                     <th>Editar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                foreach ($Registros as $itemTipoDocumento):
-                                    echo ' 
+                                if ($Registros != ' '):
+                                    foreach ($Registros as $itemTipoUsuario):
+                                        echo ' 
                                 <tr>
-                                    <td> ' . $itemTipoDocumento->tip_doc_nombre . ' </td>
-                                    <td> ' . reemplazarEstado($itemTipoDocumento->est_id) . ' </td>
-                                    <td> <a href="' . base_url($this->uri->segment(1) . "/editarTipoDocumento/" . $itemTipoDocumento->tip_doc_id) . '">Editar</a> </td>
+                                    <td> ' . $itemTipoUsuario->tip_usu_nombre . ' </td>
+                                    <td> ' . reemplazarEstado($itemTipoUsuario->est_id) . ' </td>
+                                    <td> <a href="' . base_url($this->uri->segment(1) . "/editarTipoUsuario/" . $itemTipoUsuario->tip_usu_id) . '"><i class="fa fa-pencil"></i> </a> </td>
                                 </tr>
                                 ';
 
-                                endforeach;
+                                    endforeach;
+                                endif;
                                 ?>
                             </tbody>
                         </table>
@@ -66,7 +67,7 @@ $dataSelected = array($valorEstado);
     <section class="<?php echo $valorAgregar; ?> connectedSortable">                            
         <div class="box box-solid box-warning">
             <div class="box-header">
-                <i class="fa  fa-pencil-square"></i>
+                <i class="fa fa-pencil-square"></i>
                 <h3 class="box-title">Agregar/Editar</h3>
             </div><!-- /.box-header -->
             <div class="box-body">
@@ -81,20 +82,18 @@ $dataSelected = array($valorEstado);
                 <div class="form-group">
                     <?php echo form_input($dataInput); ?>
                 </div>
-                <div class="form-group">
-                    <?php echo form_input($dataInputPrefijo); ?>
-                </div>
+
                 <div class="form-group">
                     <?php echo form_dropdown('est_id', $dataEstados, $dataSelected, 'class="required form-control"'); ?>
                 </div>
                 <div class="form-group">
 
-                    <?php echo form_hidden('tip_doc_id', $valorId) ?>
+                    <?php echo form_hidden('tip_usu_id', $valorId) ?>
                     <?php echo form_submit('guardar', 'Guardar', 'class="btn btn-success"'); ?>
                     <?php
                     if ($valorId != NULL):
                         ?>
-                        <a href="<?php echo base_url('tipodocumento'); ?>" class="btn btn-danger">Cancelar</a>
+                        <a href="<?php echo base_url('tipousuario'); ?>" class="btn btn-danger"><i class="fa fa-close"></i> Cancelar</a>
                         <?php
                     endif;
                     ?>

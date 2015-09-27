@@ -13,8 +13,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @license         MIT
  * @link            https://github.com/yYaraWebDeveloper
  */
-class Category extends MY_Restcontroller {
-    
+class Category extends Server_Controller {
+
     /**
      * Metodos y accesos dependiendo el nivel de la api
      * @var array
